@@ -1,0 +1,58 @@
+{% extends 'structure.html' %}
+
+{% block title %} Pagina de inicio {% endblock title %}
+
+{% block header %}
+
+{% include 'includes/header.html' %}
+
+{% endblock header %}
+
+{% block content %}
+
+<div class="col-md-8 col-lg-12">
+  <h4 class="mb-3">Información básica</h4>
+  <form method="get" action="/load" class="needs-validation" novalidate="">
+    <div class="row g-3">
+      <div class="col-12">
+        <label for="nombre" class="form-label">Nombre de la campaña</label><span style="float:right ;">Editar</span>
+        <input type="text" class="form-control" id="nombre" placeholder="" value="" required="">
+      </div>
+
+      <div class="col-6">
+          <label for="desde" class="form-label">Desde</label>
+          <input type="date" class="form-control" id="desde" placeholder="" required="">
+        </div>
+
+        <div class="col-6">
+          <label for="zip" class="form-label">Hasta</label>
+          <input type="date" class="form-control" id="zip" placeholder="" required="">
+        </div>
+
+      <div class="col-6">
+        <label for="country" class="form-label">Clasificación</label>
+        <select class="form-select" id="country" required="">
+          <option value="">Seleccionar...</option>
+          <option>Valor</option>
+        </select>
+      </div>
+
+      <div class="col-6">
+          <label for="country" class="form-label">Seguimiento</label>
+          <select class="form-select" id="country" required="">
+            <option value="">Seleccionar...</option>
+            <option>Valor</option>
+          </select>
+        </div>
+
+      
+
+    </div>
+
+    <hr class="my-4">
+
+    <button class="w-100 btn btn-primary btn-lg" type="submit">Continuar</button>
+  </form>
+</div>
+
+{% endblock content %}

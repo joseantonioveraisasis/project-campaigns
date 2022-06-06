@@ -10,9 +10,10 @@
 </head>
 <body>
     <div class="container">
-
+    {% block header %} {% endblock header %}
+    <main>
     {% block content %} {% endblock content %}
-
+    </main>
     </div>
 
     <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>

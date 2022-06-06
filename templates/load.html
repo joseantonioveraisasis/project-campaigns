@@ -1,0 +1,65 @@
+{% extends 'structure.html' %}
+
+{% block title %} Pagina de inicio {% endblock title %}
+
+{% block header %}
+
+{% include 'includes/header.html' %}
+
+{% endblock header %}
+
+{% block content %}
+
+<div class="col-md-8 col-lg-12">
+  <h4 class="mb-3">Nombre de la campaña</h4>
+  <form method="get" action="/" class="needs-validation" novalidate="">
+    <div class="row g-3">
+
+      <div class="col-12">
+          <label for="formFile" class="form-label">Cargar archivo</label>
+          <input class="form-control" type="file" id="formFile">
+        </div>
+
+        <div class="col-6">
+          <label for="listaNegra" class="form-label">Filtrar por lista negra</label>
+          <select class="form-select" id="listaNegra" required="">
+            <option value="">Seleccionar...</option>
+            <option>Si</option>
+          </select>
+        </div>
+
+        <div class="col-6">
+          <label for="grupoControl" class="form-label">Grupo de control</label>
+          <input type="number" class="form-control" id="grupoControl" placeholder="" value="" required="">
+        </div>
+
+      
+
+    </div>
+
+    <hr class="my-4">
+
+    <h4 class="mb-3">Canales de envío</h4>
+
+    <div class="form-check">
+      <input type="checkbox" class="form-check-input" id="same-address">
+      <label class="form-check-label" for="same-address">Mail</label>
+    </div>
+
+    <div class="form-check">
+      <input type="checkbox" class="form-check-input" id="save-info">
+      <label class="form-check-label" for="save-info">Push</label>
+    </div>
+
+    <div class="form-check">
+      <input type="checkbox" class="form-check-input" id="save-info">
+      <label class="form-check-label" for="save-info">anuncio</label>
+    </div>
+
+    <hr class="my-4">
+
+    <button class="w-100 btn btn-primary btn-lg" type="submit">Continuar</button>
+  </form>
+</div> 
+
+{% endblock content %}
