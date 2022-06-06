@@ -1,0 +1,11 @@
+<header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
+    <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
+      <span class="fs-4">Campañas</span>
+    </a>
+    <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
+      <input type="search" class="form-control" style="padding: 0.45rem 0.75rem;" placeholder="Buscar..." aria-label="Search">
+    </form>
+    <ul class="nav nav-pills">
+      <li class="nav-item"><a href="{% url 'campaigns_app:index' %}" class="nav-link active" aria-current="page">Crear campaña</a></li>
+    </ul>
+  </header>
