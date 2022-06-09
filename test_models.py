@@ -56,75 +56,6 @@ class Aprobados202206(models.Model):
         db_table = 'aprobados_202206'
 
 
-class AuthGroup(models.Model):
-    name = models.CharField(unique=True, max_length=150)
-
-    class Meta:
-        managed = False
-        db_table = 'auth_group'
-
-
-class AuthGroupPermissions(models.Model):
-    id = models.BigAutoField(primary_key=True)
-    group = models.ForeignKey(AuthGroup, models.DO_NOTHING)
-    permission = models.ForeignKey('AuthPermission', models.DO_NOTHING)
-
-    class Meta:
-        managed = False
-        db_table = 'auth_group_permissions'
-        unique_together = (('group', 'permission'),)
-
-
-class AuthPermission(models.Model):
-    name = models.CharField(max_length=255)
-    content_type = models.ForeignKey('DjangoContentType', models.DO_NOTHING)
-    codename = models.CharField(max_length=100)
-
-    class Meta:
-        managed = False
-        db_table = 'auth_permission'
-        unique_together = (('content_type', 'codename'),)
-
-
-class AuthUser(models.Model):
-    password = models.CharField(max_length=128)
-    last_login = models.DateTimeField(blank=True, null=True)
-    is_superuser = models.BooleanField()
-    username = models.CharField(unique=True, max_length=150)
-    first_name = models.CharField(max_length=150)
-    last_name = models.CharField(max_length=150)
-    email = models.CharField(max_length=254)
-    is_staff = models.BooleanField()
-    is_active = models.BooleanField()
-    date_joined = models.DateTimeField()
-
-    class Meta:
-        managed = False
-        db_table = 'auth_user'
-
-
-class AuthUserGroups(models.Model):
-    id = models.BigAutoField(primary_key=True)
-    user = models.ForeignKey(AuthUser, models.DO_NOTHING)
-    group = models.ForeignKey(AuthGroup, models.DO_NOTHING)
-
-    class Meta:
-        managed = False
-        db_table = 'auth_user_groups'
-        unique_together = (('user', 'group'),)
-
-
-class AuthUserUserPermissions(models.Model):
-    id = models.BigAutoField(primary_key=True)
-    user = models.ForeignKey(AuthUser, models.DO_NOTHING)
-    permission = models.ForeignKey(AuthPermission, models.DO_NOTHING)
-
-    class Meta:
-        managed = False
-        db_table = 'auth_user_user_permissions'
-        unique_together = (('user', 'permission'),)
-
-
 class Bcra3500(models.Model):
     fecha = models.DateField(primary_key=True)
     tipo_cambio = models.FloatField(blank=True, null=True)
@@ -317,51 +248,6 @@ class Deletedusers(models.Model):
     class Meta:
         managed = False
         db_table = 'deletedusers'
-
-
-class DjangoAdminLog(models.Model):
-    action_time = models.DateTimeField()
-    object_id = models.TextField(blank=True, null=True)
-    object_repr = models.CharField(max_length=200)
-    action_flag = models.SmallIntegerField()
-    change_message = models.TextField()
-    content_type = models.ForeignKey('DjangoContentType', models.DO_NOTHING, blank=True, null=True)
-    user = models.ForeignKey(AuthUser, models.DO_NOTHING)
-
-    class Meta:
-        managed = False
-        db_table = 'django_admin_log'
-
-
-class DjangoContentType(models.Model):
-    app_label = models.CharField(max_length=100)
-    model = models.CharField(max_length=100)
-
-    class Meta:
-        managed = False
-        db_table = 'django_content_type'
-        unique_together = (('app_label', 'model'),)
-
-
-class DjangoMigrations(models.Model):
-    id = models.BigAutoField(primary_key=True)
-    app = models.CharField(max_length=255)
-    name = models.CharField(max_length=255)
-    applied = models.DateTimeField()
-
-    class Meta:
-        managed = False
-        db_table = 'django_migrations'
-
-
-class DjangoSession(models.Model):
-    session_key = models.CharField(primary_key=True, max_length=40)
-    session_data = models.TextField()
-    expire_date = models.DateTimeField()
-
-    class Meta:
-        managed = False
-        db_table = 'django_session'
 
 
 class DlEvaluations(models.Model):
@@ -693,6 +579,9 @@ class DwCampanias(models.Model):
         managed = False
         db_table = 'dw_campanias'
 
+    def __str__(self):
+        return self.nombre_campania
+
 
 class DwCampaniasBackup(models.Model):
     id_campania = models.BigIntegerField(blank=True, null=True)
@@ -924,3 +813,101 @@ class DwDiarioClientesActivos(models.Model):
     fx_acum = models.IntegerField(blank=True, null=True)
     fx_diario = models.IntegerField(blank=True, null=True)
     activos_diario = models.IntegerField(blank=True, null=True)
+    cl_consumo_diario = models.IntegerField(blank=True, null=True)
+    cl_consumo_acum = models.IntegerField(blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'dw_diario_clientes_activos'
+
+
+class DwDiarioFx(models.Model):
+    periodo = models.DateField(blank=True, null=True)
+    fecha = models.DateField(blank=True, null=True)
+    cant_compra_usd = models.IntegerField(blank=True, null=True)
+    tot_deb_pesos = models.FloatField(blank=True, null=True)
+    tot_cred_usd = models.FloatField(blank=True, null=True)
+    cant_venta_usd = models.IntegerField(blank=True, null=True)
+    tot_deb_usd = models.FloatField(blank=True, null=True)
+    tot_cred_pesos = models.FloatField(blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'dw_diario_fx'
+
+
+class DwDiarioTransacResumen(models.Model):
+    fecha = models.DateField(blank=True, null=True)
+    categoria = models.CharField(max_length=50, blank=True, null=True)
+    transaccion = models.CharField(max_length=50, blank=True, null=True)
+    cant_transacciones = models.IntegerField(blank=True, null=True)
+    monto_pesos = models.FloatField(blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'dw_diario_transac_resumen'
+
+
+class DwEnvioCampaniasOnbInactivos(models.Model):
+    fecha = models.DateField(primary_key=True)
+    nro_envio = models.SmallIntegerField()
+    id_campania = models.IntegerField(blank=True, null=True)
+    fecha_creacion = models.DateTimeField(blank=True, null=True)
+    cant_reg = models.IntegerField(blank=True, null=True)
+    fecha_archivo = models.DateTimeField(blank=True, null=True)
+    id = models.AutoField(blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'dw_envio_campanias_onb_inactivos'
+        unique_together = (('fecha', 'nro_envio'),)
+
+
+class DwEvaluationsAbr21(models.Model):
+    cuil = models.CharField(max_length=11, blank=True, null=True)
+    predictor_ingresos = models.CharField(max_length=3, blank=True, null=True)
+    banco_actual = models.CharField(max_length=70, blank=True, null=True)
+    situacion_max_actual = models.IntegerField(blank=True, null=True)
+    deuda_max_actual = models.FloatField(blank=True, null=True)
+    banco_ult_12m = models.CharField(max_length=70, blank=True, null=True)
+    situacion_max_ult_12m = models.IntegerField(blank=True, null=True)
+    deuda_max_ult_12m = models.FloatField(blank=True, null=True)
+    fecha_ult_12m = models.DateField(blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'dw_evaluations_abr21'
+
+
+class DwEvaluationsFinal(models.Model):
+    id_cliente = models.BigIntegerField(blank=True, null=True)
+    incomelevel = models.CharField(max_length=-1, blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'dw_evaluations_final'
+
+
+class DwFsd011Temp(models.Model):
+    id_cliente = models.IntegerField(blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'dw_fsd011_temp'
+
+
+class DwFx(models.Model):
+    fecha = models.DateField(blank=True, null=True)
+    id_cliente = models.IntegerField(blank=True, null=True)
+    id_transaccion = models.IntegerField(blank=True, null=True)
+    cta_deb_moneda = models.CharField(max_length=10, blank=True, null=True)
+    cta_deb_monto = models.FloatField(blank=True, null=True)
+    cta_cred_moneda = models.CharField(max_length=10, blank=True, null=True)
+    cta_cred_monto = models.FloatField(blank=True, null=True)
+    tipocambio = models.FloatField(blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'dw_fx'
+
+

@@ -27,16 +27,16 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
 
         'OPTIONS': {
-                'options': '-c search_path=development,public,campanias,temp_202206,scripts'
+                'options': '-c search_path=development,campanias'
             },
 
-        'NAME': 'biwares',
+        'NAME': 'local',
 
-        'USER': 'biwares@db-bbpostgres96.postgres.database.azure.com',
+        'USER': 'postgres',
 
-        'PASSWORD': '0okmvfe3',
+        'PASSWORD': 'contrasenia',
 
-        'HOST': 'db-bbpostgres96.postgres.database.azure.com',
+        'HOST': 'localhost',
 
         'PORT': '5432',
 
