@@ -23,15 +23,16 @@ class LoadView(TemplateView):
 #Custom
 class CampaignList(ListView):
     template_name = 'index.html'
-    model = DwCampanias
+
+    def get_queryset(self):
+    
+        return DwCampanias.objects.list_campaigns()
 
 class CampaignSearch(ListView):
-    template_name = 'index.html'
     context_object_name = 'nombre_campania'
+    template_name = 'index.html'
 
     def get_queryset(self):
         query = self.request.GET.get('q','')
-        list = DwCampanias.objects.filter(
-            nombre_campania__icontains = query
-        )
-        return list
+
+        return DwCampanias.objects_search.search_campaigns(query)

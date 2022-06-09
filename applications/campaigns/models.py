@@ -8,6 +8,9 @@
 from tabnanny import verbose
 from django.db import models
 
+#managers
+from .managers import CampaignsManager,SearchCampaignsManager
+
 class LkClasificacionCampanias(models.Model):
     id_clasificacion = models.IntegerField(primary_key=True)
     nombre_clasificacion = models.CharField(max_length=30, blank=True, null=True)
@@ -48,6 +51,9 @@ class DwCampanias(models.Model):
     respond_read = models.IntegerField(blank=True, null=True, editable=False)
     #id_clasificacion = models.IntegerField(blank=True, null=True)
     id_clasificacion = models.ForeignKey(LkClasificacionCampanias, models.DO_NOTHING, db_column='id_clasificacion', blank=True, null=True)
+
+    objects = CampaignsManager()
+    objects_search = SearchCampaignsManager()
 
     class Meta:
         managed = False

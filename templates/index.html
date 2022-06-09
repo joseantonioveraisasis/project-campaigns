@@ -71,19 +71,36 @@
       <tr>
         <th scope="col">Id</th>
         <th scope="col">Nombre</th>
-        <th scope="col">Fecha creación</th>
-        <th scope="col">Fecha envío</th>
+        <th scope="col">Creación</th>
+        <th scope="col">Envío</th>
         <th scope="col">Clasificación</th>
+        <th scope="col"></th>
       </tr>
     </thead>
-    <tbody>
+    <tbody class="table-group-divider">
       {% for e in object_list %}
       <tr>
-        <th scope="row">{{e.id_campania}}</th>
+        <td><label class="list-group-item d-flex gap-2">
+          <input class="form-check-input flex-shrink-0" type="radio" name="listGroupRadios" id="listGroupRadios1" value="" >
+          <span>
+            {{e.id_campania}}
+          </span>
+        </label></td>
         <td>{{e.nombre_campania}}</td>
         <td>{{e.fecha_creacion}}</td>
         <td>{{e.fecha_envio}}</td>
-        <td>{{e.id_clasificacion}}</td>
+        <td>3</td>
+        <td>
+          <ul class="nav nav-pills">
+            <li class="nav-item dropdown">
+              <a class="nav-link" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#adb5bd"><path d="M0 0h24v24H0z" fill="none"/><path d="M6 10c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm12 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm-6 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg></a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="#scrollspyHeading3">Editar</a></li>
+                <li><a class="dropdown-item" href="#scrollspyHeading4">Eliminar</a></li>
+              </ul>
+            </li>
+          </ul>
+        </td>
       </tr>
       {% endfor %}   
 
@@ -91,3 +108,5 @@
   </table>
 
 {% endblock content %}
+
+
