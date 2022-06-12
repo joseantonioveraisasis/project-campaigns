@@ -1,8 +1,12 @@
 from datetime import datetime
+import pandas as pd
+import csv
 from dataclasses import fields
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse_lazy
+
+from .forms import FileFieldForm
 
 from django.views.generic import (
     TemplateView,
@@ -14,20 +18,7 @@ from django.views.generic.edit import FormView
 # models
 from .models import DwCampanias,LkClasificacionCampanias
 from .forms import CreateForm
-from .forms import UploadFileForm
 
-def upload_file(request):
-    if request.method == 'POST':
-        print('+++++++++++++++++++++++++++++++++++++')
-        form = UploadFileForm(request.POST, request.FILES)
-        if form.is_valid():
-            print('+++++++++++++++++++++++++++++++++++++')
-            #handle_uploaded_file(request.FILES['file'])
-            return HttpResponseRedirect('success/')
-    else:
-        form = UploadFileForm()
-        print('------------------------------------')
-    return render(request, 'upload.html', {'form': form})
 
 # Create your views here.
 
@@ -42,8 +33,27 @@ class SuccessView(TemplateView):
     template_name = 'success.html'
 
 class LoadView(FormView):
-    template_name = 'load.html'
-    form_class = UploadFileForm
+    form_class = FileFieldForm
+    template_name = 'load.html'  # Replace with your template.
+    success_url = reverse_lazy('campaigns_app:success')
+    
+
+    def post(self, request, *args, **kwargs):
+        form_class = self.get_form_class()
+        form = self.get_form(form_class)
+        files = request.FILES['file_field']
+        df=pd.read_csv(files,sep=',')
+        row_iter = df.iterrows()
+        
+
+        for index, row in row_iter:
+            print(row[0])
+
+        if form.is_valid():
+            return self.form_valid(form)
+        else:
+            print('================else================')
+            return self.form_invalid(form)
 
 
 #Custom

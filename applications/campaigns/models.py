@@ -35,7 +35,6 @@ class DwCampanias(models.Model):
     id_clasificacion = models.ForeignKey(LkClasificacionCampanias, models.CASCADE, db_column='id_clasificacion', blank=True, null=True)
     tracking_id = models.IntegerField(blank=True, null=True)
     tracked = models.BooleanField(blank=True, null=True)
-    file = models.ImageField(upload_to='')
 
     objects_create = CreateCampaignsManager()
     objects_search = SearchCampaignsManager()
@@ -55,11 +54,6 @@ class DwCampanias(models.Model):
 class FileCSV(models.Model):
     file = models.FileField(upload_to='')
 
-def optimize_image(sender, instance, **kwargs):
-    print('################################')
-    print(instance)
-
-post_save.connect(optimize_image,sender=DwCampanias)
 
 
 
