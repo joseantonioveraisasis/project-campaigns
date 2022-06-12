@@ -11,7 +11,8 @@ class ListaCampanias(admin.ModelAdmin):
         'nombre_campania',
         'fecha_creacion',
         'fecha_envio',
-        'id_clasificacion'
+        'id_clasificacion',
+        'tracked'
     )
     search_fields  = ('nombre_campania',)
 

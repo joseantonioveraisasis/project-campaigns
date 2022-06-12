@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models import Q
 
 class CampaignsManager(models.Manager):
     """" managers para las campañas"""
@@ -11,6 +12,13 @@ class SearchCampaignsManager(models.Manager):
 
     def search_campaigns(self, kword):
         result = self.filter(
-            nombre_campania__icontains = kword
+            Q(nombre_campania__icontains = kword) | Q(id_campania__icontains = kword)
         )
         return result
+
+class CreateCampaignsManager(models.Manager):
+    """" managers crear campañas"""
+
+    def list_campaigns(self):
+        
+        return self.all()

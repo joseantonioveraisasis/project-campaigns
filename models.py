@@ -152,6 +152,8 @@ class DwCampanias(models.Model):
     respond_gc = models.IntegerField(blank=True, null=True)
     respond_read = models.IntegerField(blank=True, null=True)
     id_clasificacion = models.ForeignKey('LkClasificacionCampanias', models.DO_NOTHING, db_column='id_clasificacion', blank=True, null=True)
+    tracking_id = models.IntegerField(blank=True, null=True)
+    tracked = models.BooleanField(blank=True, null=True)
 
     class Meta:
         managed = False
