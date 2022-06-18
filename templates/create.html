@@ -1,22 +1,14 @@
-{% extends 'structure.html' %}
+{% extends 'generator.html' %}
 
-{% block title %} Pagina de inicio {% endblock title %}
+{% block subtitle %}
+Nueva campaña
+{% endblock subtitle %}
 
-{% block header %}
+{% block crear %} active{% endblock crear %}
+{% block cargar %} {% endblock cargar %}
+{% block publicar %} {% endblock publicar %}
 
-{% include 'includes/header.html' %}
-
-{% endblock header %}
-
-{% block content %}
-
-<div class="d-md-flex align-items-center justify-content-between mb-3" style="max-width: 600px;margin:auto">
-  <h4 class="bd-title mb-0" id="content">Información básica</h4>
-</div>
-
-<div class="card p-3 px-4" style="max-width: 600px;margin:auto">
-
-<div class="col-md-8 col-lg-12">
+{% block cardbody %}
   <form method="POST" class="needs-validation" novalidate="">{{ form.fecha_creacion }}{% csrf_token %}
 
     <div class="row g-3">
@@ -48,6 +40,8 @@
 
     </div>
 
+      
+    <!-- <h3>Registro</h3> -->
     <hr class="my-4">
 
     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
@@ -55,8 +49,5 @@
       <button type="submit" class="btn btn-dark">Guadar</button>
     </div>
   </form>
-</div>
 
-</div>
-
-{% endblock content %}
+{% endblock cardbody %}

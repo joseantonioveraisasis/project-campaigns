@@ -1,0 +1,43 @@
+{% extends 'structure.html' %}
+
+{% block title %} Generador de campaña {% endblock title %}
+
+{% block header %}
+
+{% include 'includes/header.html' %}
+
+{% endblock header %}
+
+{% block content %}
+
+<div class="d-md-flex align-items-center justify-content-between mb-3" style="max-width: 600px;margin:auto">
+    <h4 class="bd-title mb-0" id="content">{% block subtitle %} {% endblock subtitle %}</h4>
+  </div>
+  
+  <div class="card" style="max-width: 600px;margin:auto">
+    <div class="card-header">
+        <ul class="nav nav-tabs card-header-tabs">
+            <li class="nav-item">
+              <a class="nav-link {% block crear %} {% endblock crear %}" aria-current="true" href="{% url 'campaigns_app:campaign_create' %}">Crear</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle {% block cargar %} {% endblock cargar %}" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Cargar</a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="{% url 'campaigns_app:load' 1 %}">Cargar</a></li>
+                <li><a class="dropdown-item" href="#">Consultar</a></li>
+                <li><a class="dropdown-item" href="#">Filtrar</a></li>
+              </ul>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link {% block publicar %} {% endblock publicar %}" href="#">Publicar</a>
+            </li>
+          </ul>
+    </div>
+    <div class="card-body">
+      {% block cardbody %}
+      {% endblock cardbody %}
+    </div>
+
+  </div>
+
+{% endblock content %}

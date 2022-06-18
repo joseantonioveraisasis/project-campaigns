@@ -8,7 +8,20 @@ class FileFieldForm(forms.Form):
     file_field = forms.FileField(widget=forms.ClearableFileInput(attrs={'multiple': True}))
 
 class UploadFileForm(forms.Form):
-    file = forms.FileField()
+    file = forms.FileField(
+        
+        widget=forms.ClearableFileInput(
+            attrs={
+                'id': 'file',
+                'name': 'file',
+                'type': 'file',
+                'enctype': 'multipart/form-data',
+                'accept': '.csv, text/csv',
+                'required': '',
+                'class': 'form-control'
+            }
+        )
+    )
 
 class CreateForm(forms.ModelForm):
 
@@ -34,13 +47,16 @@ class CreateForm(forms.ModelForm):
                 }
             ),
             'vigencia_desde': forms.DateInput(
+                format='%Y-%m-%d',
                 attrs= {
                     'type': 'date',
+                    'value': datetime.now().strftime("%Y-%m-%d"),
                     'class': 'form-control',
                     'required': ''
                 }
             ),
             'vigencia_hasta': forms.DateInput(
+                format='%Y-%m-%d',
                 attrs= {
                     'type': 'date',
                     'class': 'form-control',
@@ -59,6 +75,7 @@ class CreateForm(forms.ModelForm):
                 }
             ),
             'fecha_creacion': forms.DateInput(
+                format='%Y-%m-%d',
                 attrs= {
                     'type': 'hidden',
                     'value': datetime.now().strftime("%Y-%m-%d"),
@@ -67,3 +84,8 @@ class CreateForm(forms.ModelForm):
             ),
 
         }
+    #validations
+    ''' def clean_control_group(self):
+        cg = self.changed_data['x']
+        if not cg > -1:
+            raise forms.ValidationError('Ingrese numero mayor a -1') '''

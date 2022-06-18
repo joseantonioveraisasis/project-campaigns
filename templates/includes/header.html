@@ -10,11 +10,11 @@
 
         <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
           <li><a href="{% url 'campaigns_app:index' %}" class="nav-link px-2 text-secondary">Principal</a></li>
-          <li><a href="#" class="nav-link px-2">Enlace</a></li>
-          <li><a href="#" class="nav-link px-2">Enlace</a></li>
+          <li><a href="#" class="nav-link px-2">Reportes</a></li>
+          <li><a href="#" class="nav-link px-2">Seguimiento</a></li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Enlace
+              Mas
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
               <li><a class="dropdown-item" href="#">Sub</a></li>
@@ -25,8 +25,8 @@
           </li>
         </ul>
 
-        <form method="get" action="{% url 'campaigns_app:search' %}" class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
-          <input id="q" name="q" type="search" class="form-control" placeholder="Buscar..." aria-label="Search">
+        <form method="get" action="/" class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
+          <input id="search" name="search" type="search" class="form-control" placeholder="Buscar..." aria-label="Search">
         </form>
       </div>
     </div>

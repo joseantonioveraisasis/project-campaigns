@@ -12,7 +12,7 @@
 
 
   <div class="d-md-flex flex-md-row-reverse align-items-center justify-content-between mb-3">
-    <a class="btn btn-sm btn-primary rounded-1" href="{% url 'campaigns_app:campaign_create' %}">
+    <a class="btn btn-sm btn-dark rounded-1" href="{% url 'campaigns_app:campaign_create' %}">
       Crear campaña
     </a>
     <h4 class="bd-title mb-0" id="content">Campañas</h4>
@@ -54,9 +54,8 @@
             <li class="nav-item dropdown">
               <a class="nav-link" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#adb5bd"><path d="M0 0h24v24H0z" fill="none"/><path d="M6 10c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm12 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm-6 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg></a>
               <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#">Duplicar</a></li>
-                <li><a class="dropdown-item" href="#">Editar</a></li>
-                <li><a class="dropdown-item" href="#">Eliminar</a></li>
+                <li><a class="dropdown-item" href="{% url 'campaigns_app:edit' camp.id_campania %}">Editar</a></li>
+                <li><a class="dropdown-item" href="{% url 'campaigns_app:delete' camp.id_campania %}">Eliminar</a></li>
               </ul>
             </li>
           </ul>

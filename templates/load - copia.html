@@ -1,0 +1,167 @@
+{% extends 'structure.html' %}
+
+{% block title %} Pagina de inicio {% endblock title %}
+
+{% block header %}
+
+{% include 'includes/header.html' %}
+
+{% endblock header %}
+
+{% block content %}
+
+<div class="d-md-flex align-items-center justify-content-between mb-3" style="max-width: 600px;margin:auto">
+  <h4 class="bd-title mb-0" id="content">Cargar clientes</h4>
+</div>
+
+<div class="card" style="max-width: 600px;margin:auto">
+  <div class="card-header">
+    <ul class="nav nav-tabs card-header-tabs">
+      <li class="nav-item">
+        <a class="nav-link active" aria-current="true" href="#">Crear</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link disabled" href="#">Cargar</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link disabled" href="#">Filtrar</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link disabled" href="#">Publicar</a>
+      </li>
+    </ul>
+  </div>
+  <div class="card-body">
+    <h5 class="card-title">Seleccionar archivo</h5>
+    <p class="card-text" style="display: none;">Ningun archivo seleccionado, por favor selecciona un archivo .csv</p>
+    <a href="#" class="btn btn-primary" style="display: none;">Subir archivo</a>
+
+    <form method="POST" enctype="multipart/form-data" class="needs-validation" novalidate="">{% csrf_token %}
+      <div class="row g-3">
+  
+        <div class="col-12">
+            <input class="form-control" type="file" name="file_field" id="formFile"  accept=".csv, text/csv">
+            <button type="submit" class="btn btn-primary mt-3" style="width: 120px;">Subir archivo</button>
+          </div>
+      </div>
+    </form>
+
+<!--     <div class="col-md-8 col-lg-12" style="max-width: 600px;margin:auto">
+
+      <form method="get" action="/" class="needs-validation" novalidate="">
+        <div class="row g-3">
+    
+            <div class="col-6">
+              <label for="listaNegra" class="form-label">Filtrar por lista negra</label>
+              <select class="form-select" id="listaNegra" required="">
+                <option value="">Seleccionar...</option>
+                <option>Si</option>
+              </select>
+            </div>
+    
+            <div class="col-6">
+              <label for="grupoControl" class="form-label">Grupo de control</label>
+              <input type="number" class="form-control" id="grupoControl" placeholder="" value="" required="">
+            </div>
+    
+          
+    
+        </div>
+    
+        <hr class="my-4">
+    
+        <h4 class="mb-3">Canales de envío</h4>
+    
+        <div class="form-check">
+          <input type="checkbox" class="form-check-input" id="same-address">
+          <label class="form-check-label" for="same-address">Mail</label>
+        </div>
+    
+        <div class="form-check">
+          <input type="checkbox" class="form-check-input" id="save-info">
+          <label class="form-check-label" for="save-info">Push</label>
+        </div>
+    
+        <div class="form-check">
+          <input type="checkbox" class="form-check-input" id="save-info">
+          <label class="form-check-label" for="save-info">anuncio</label>
+        </div>
+    
+        <hr class="my-4">
+    
+        <button class="w-100 btn btn-primary btn-lg" type="submit">Continuar</button>
+      </form>
+    </div>  -->
+  </div>
+
+  <div class="card-body" style="display: none;">
+
+    <div class="col-md-8 col-lg-12 hide">
+      <form class="needs-validation" novalidate="">
+        <div class="mb-3">
+          <label for="exampleFormControlTextarea1" class="form-label">Escribir consulta</label>
+          <textarea class="form-control" id="exampleFormControlTextarea1" rows="8" placeholder="SELECT * FROM table WHERE 1=0;"></textarea>
+        </div>
+
+        <hr class="my-4">
+
+        <button class="w-100 btn btn-primary btn-lg" type="submit">Continuar</button>
+      </form>
+    </div> 
+
+  </div>
+</div>
+
+<!-- <div class="col-md-8 col-lg-12" style="max-width: 600px;margin:auto">
+  <h4 class="mb-3">Nombre de la campaña</h4>
+  <form method="get" action="/" class="needs-validation" novalidate="">
+    <div class="row g-3">
+
+      <div class="col-12">
+          <label for="formFile" class="form-label">Cargar archivo</label>
+          <input class="form-control" type="file" id="formFile">
+        </div>
+
+        <div class="col-6">
+          <label for="listaNegra" class="form-label">Filtrar por lista negra</label>
+          <select class="form-select" id="listaNegra" required="">
+            <option value="">Seleccionar...</option>
+            <option>Si</option>
+          </select>
+        </div>
+
+        <div class="col-6">
+          <label for="grupoControl" class="form-label">Grupo de control</label>
+          <input type="number" class="form-control" id="grupoControl" placeholder="" value="" required="">
+        </div>
+
+      
+
+    </div>
+
+    <hr class="my-4">
+
+    <h4 class="mb-3">Canales de envío</h4>
+
+    <div class="form-check">
+      <input type="checkbox" class="form-check-input" id="same-address">
+      <label class="form-check-label" for="same-address">Mail</label>
+    </div>
+
+    <div class="form-check">
+      <input type="checkbox" class="form-check-input" id="save-info">
+      <label class="form-check-label" for="save-info">Push</label>
+    </div>
+
+    <div class="form-check">
+      <input type="checkbox" class="form-check-input" id="save-info">
+      <label class="form-check-label" for="save-info">anuncio</label>
+    </div>
+
+    <hr class="my-4">
+
+    <button class="w-100 btn btn-primary btn-lg" type="submit">Continuar</button>
+  </form>
+</div>  -->
+
+{% endblock content %}

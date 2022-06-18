@@ -1,0 +1,29 @@
+{% extends 'structure.html' %}
+
+{% block title %} Eliminar campaña {% endblock title %}
+
+{% block header %}
+
+{% include 'includes/header.html' %}
+
+{% endblock header %}
+
+{% block content %}
+
+  <div class="card" style="max-width: 600px;margin:auto; margin-top: 70px;">
+    <div class="card-body">
+        <h5 class="card-title">Eliminar campaña</h5>
+        <p class="card-text">Está seguro que desea eliminar la campaña "{{camps.nombre_campania}}"?</p>
+        <hr class="my-4">
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+            <a href="{% url 'campaigns_app:index' %}" class="btn btn-light">Cancelar</a>
+            <form method="POST" action="{% url 'campaigns_app:delete' camps.id_campania %}" class="needs-validation" novalidate="">{% csrf_token %}
+            <button type="submit" class="btn btn-dark">Eliminar</button>
+            </form>
+          </div>
+        
+      </div>
+
+  </div>
+
+{% endblock content %}
