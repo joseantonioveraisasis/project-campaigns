@@ -1,5 +1,4 @@
 from datetime import datetime
-from gc import get_objects
 from genericpath import exists
 import pandas as pd
 import csv
@@ -8,7 +7,6 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.db import connection
-from django.db.models import Q
 
 from django.views.generic import (
     TemplateView,
@@ -28,9 +26,7 @@ from .models import (
     DwCampaniaClienteCanal, 
     DwCampaniaClienteCanalGrupocontrol, 
     DwBlackListGeneral, 
-    DwTemp202206,
-    DwProcesosEtl,
-    PgStatActivity)
+    DwTemp202206)
 from .forms import CreateForm, UploadFileForm
 
 
@@ -39,7 +35,7 @@ from .forms import CreateForm, UploadFileForm
 #listar las campañas
 class CampaignList(ListView):
     template_name = 'index.html'
-    paginate_by = 50
+    paginate_by = 15
     ordering = '-fecha_creacion'
     context_object_name = 'camps'
 
@@ -84,21 +80,13 @@ class LoadView(FormView):
     form_class = UploadFileForm
     template_name = 'load.html'  # Replace with your template.
     success_url = reverse_lazy('campaigns_app:success')
-    #context_object_name = 'parameters'
 
     ''' def get_queryset(self):
-        context = {'pk':self.kwargs['pk']}
-        return context '''
+        id = self.kwargs['id']
+        return list(id) '''
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['pk'] = self.kwargs['pk']
-        return context
-        
-
-    def get_success_url(self, **kwargs):
-        return reverse_lazy('campaigns_app:upload', kwargs={'pk': self.kwargs['pk']})
     
+
     def post(self, request, *args, **kwargs):
         pk = kwargs['pk']
         form_class = self.get_form_class()
@@ -106,10 +94,8 @@ class LoadView(FormView):
         files = request.FILES['file']
         df = pd.read_csv(files,sep=',')
         row_iter = df.iterrows()
-        option = request.POST['option']
+        print(request.POST['inlineRadioOptions'])
         objs = []
-        lst = list()
-        objs2 = []
 
         def is_true(llave, dicc):
             if llave in dicc:
@@ -125,58 +111,44 @@ class LoadView(FormView):
                 monto = row['monto'] if is_true('monto',row) else None
             )
             objs.append(list_)
-            lst.append(row['cuitcuil'])
             
         to_delete = DwTemp202206.objects.filter(id_campania=pk)
         to_delete.delete()
         DwTemp202206.objects.bulk_create(objs)
 
-        query_clientes = DwClientes.objects.filter(
-            cuitcuil__in = lst,
-            black_list__id_cliente__isnull=True
-        ).values('id_cliente')
-
-        for item in query_clientes:
-            _list = DwCampaniaClienteCanal(
-                id_campania = pk, 
-                id_cliente = item['id_cliente'],
-                fecha = datetime.now().strftime("%Y-%m-%d")
-            )
-            objs2.append(_list)
-
-        DwCampaniaClienteCanal.objects.bulk_create(objs2)
-            
-        print(f'la consulta: {query_clientes.query}')
-        print(f'resultado: {query_clientes}')
-        print(f'bulk: {objs2}')
-
-
         #k=Enrollment.objects.filter(course__courseid=1).values('id','course__courseid','course__name','enrollid')
+        #print(k.query)
+        ''' k = DwClientes.objects.filter(
+            black_list__id_cliente__isnull=True
+        ).values_list('id_cliente')
+        print(f'la consulta: {k.query}')
+        print(f'resultado: {k}')
+ '''
+        sql = "select \
+                cl.id_cliente,888,'2022-05-19','[mail]' \
+                from public.dw_clientes as cl \
+                inner join \
+                temporal.dw_temp_202206 as t1 on t1.id_cliente = cl.id_cliente \
+                left join \
+                campanias.dw_black_list_general as bl on bl.id_cliente = cl.id_cliente \
+                where \
+                bl.id_cliente is null"
+
+        cursor = connection.cursor()
+        try:
+            cursor.execute(sql)
+            row = cursor.fetchall()
+            print(row)
+        except Exception as e:
+            print('############ ERROR #############')
+            cursor.close
 
         if form.is_valid():
-            #print('================valid================')
+            print('================valid================')
             return self.form_valid(form)
         else:
-            #print('================invalid================')
+            print('================invalid================')
             return self.form_invalid(form)
-
-
-class FiltersView(TemplateView):
-    template_name = 'filters.html'
-    #extra_context = {'page_name': 'home'}
-
-    '''def get_queryset(self):
-        context = self.kwargs['pk']
-        return context '''
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['pk'] = self.kwargs['pk']
-        return context
-
-
-class UploadView(TemplateView):
-    template_name = 'upload.html'
 
 
 class SuccessView(TemplateView):
@@ -185,29 +157,6 @@ class SuccessView(TemplateView):
 
 class EmptyView(TemplateView):
     template_name = 'empty.html'
-
-
-class ProcessView(ListView):
-    template_name = 'process.html'
-    model = DwProcesosEtl
-    paginate_by = 20
-    ordering = '-fecha_inicio_proceso'
-    context_object_name = 'procesos'
-
-
-class ActivityView(ListView):
-    template_name = 'activity.html'
-    model = PgStatActivity
-    paginate_by = 20
-    ordering = '-query_start'
-    context_object_name = 'activity'
-
-    def get_queryset(self):
-        queryset = PgStatActivity.objects.filter(
-            Q(datname = 'biwares') & ~Q(state='idle')
-        )
-    
-        return queryset
 
 
 

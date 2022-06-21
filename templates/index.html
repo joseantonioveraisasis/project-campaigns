@@ -12,9 +12,20 @@
 
 
   <div class="d-md-flex flex-md-row-reverse align-items-center justify-content-between mb-3">
-    <a class="btn btn-sm btn-dark rounded-1" href="{% url 'campaigns_app:campaign_create' %}">
+    <!-- <a class="btn btn-sm btn-dark rounded-1" href="{% url 'campaigns_app:campaign_create' %}">
       Crear campaña
-    </a>
+    </a> -->
+    <div class="btn btn-sm btn-dark dropdown">
+      <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        Crear campaña
+      </a>
+      <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+        <li><a class="dropdown-item" href="{% url 'campaigns_app:campaign_create' %}">Nueva</a></li>
+        <li><a class="dropdown-item" href="#">Predefinida</a></li>
+        <!-- <li><hr class="dropdown-divider"></li>
+        <li><a class="dropdown-item" href="#">Sub</a></li> -->
+      </ul>
+    </div>
     <h4 class="bd-title mb-0" id="content">Campañas</h4>
   </div>
   <div class="card p-3">
@@ -46,7 +57,7 @@
         <td>
           <!-- <svg xmlns="http://www.w3.org/2000/svg" height="10px" viewBox="0 0 28 28" width="10px" fill="#000000"><path d="M0 0h24v24H0z" fill="none"/><circle cx="12" cy="12" r="10"/></svg> -->
           <div class="form-check" style="padding-top: 0.2rem;">
-            <input class="form-check-input" type="checkbox" {% if e.tracked == True %}checked{% endif %} value="" id="flexCheckIndeterminate">
+            <input class="form-check-input" type="checkbox" {% if camp.istracked == True %}checked{% endif %} value="" id="flexCheckIndeterminate">
           </div>
         </td>
         <td>

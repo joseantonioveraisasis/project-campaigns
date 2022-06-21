@@ -1,0 +1,78 @@
+{% extends 'generator.html' %}
+
+{% block subtitle %}
+Canales de envío
+{% endblock subtitle %}
+
+{% block crear %} {% endblock crear %}
+{% block cargar %}{% endblock cargar %}
+{% block publicar %} active{% endblock publicar %}
+
+{% block cardbody %}
+
+<table class="table align-middle table-hover">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Nombre</th>
+        <th scope="col">Canal</th>
+        <th scope="col">Archivo</th>
+      </tr>
+    </thead>
+    <tbody class="">
+      <tr>
+        <th class="py-3">
+          1874
+        </th>
+        <td>
+            Prestamos Junio 22 2do Envio
+        </td>
+        <td>
+          Anuncio
+        </td>
+        <td>
+            <a class="btn btn-sm btn-dark" href="#">
+                Enviar
+              </a>
+        </td>
+      </tr>
+
+      <tr>
+        <th>
+          1468
+        </th>
+        <td>
+            Prestamos Junio 22 2do Envio
+        </td>
+        <td>
+          Mail
+        </td>
+        <td>
+            <a class="btn btn-sm btn-dark" href="#">
+                Enviar
+              </a>
+        </td>
+      </tr>
+
+
+      <tr>
+        <th>
+          1978
+        </th>
+        <td>
+            Prestamos Junio 22 2do Envio
+        </td>
+        <td>
+          Push
+        </td>
+        <td>
+            <a class="btn btn-sm btn-dark" href="#">
+                Enviar
+              </a>
+        </td>
+      </tr>
+
+
+    </tbody>
+  </table>
+  {% endblock cardbody %}

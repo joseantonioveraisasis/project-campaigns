@@ -1,6 +1,6 @@
 {% extends 'structure.html' %}
 
-{% block title %} Actividad {% endblock title %}
+{% block title %} Procesos ETL {% endblock title %}
 
 {% block header %}
 
@@ -12,32 +12,31 @@
 
 
   <div class="d-md-flex align-items-center justify-content-between mb-3">
-    <h4 class="bd-title mb-0" id="content">Actividad</h4>
+    <h4 class="bd-title mb-0" id="content">Procesos ETL</h4>
   </div>
   <div class="card p-3">
   <table class="table table-sm align-middle table-hover">
     <thead>
       <tr>
-        <th scope="col">Pid</th>
-        <th scope="col">Dirección ip</th>
-        <th scope="col">Inicio de consulta</th>
-        <th scope="col">Cambio de estado</th>
-        <th scope="col">Estado</th>
-        <th scope="col">Consulta</th>
+        <th scope="col">Nombre</th>
+        <th scope="col">Inicio</th>
+        <th scope="col">Fin</th>
+        <th scope="col">Observaciones</th>
       </tr>
     </thead>
     <tbody class="table-group-divider">
-      {% for act in activity %}
+      {% for proc in procesos %}
       <tr>
-        <td class="py-3">{{act.pid}}</td>
-        <td>{{act.client_addr}}</td>
-        <td>{{act.query_start}}</td>
-        <td>{{act.state_change}}</td>
-        <td>{{act.state}}</td>
+        <td class="py-3">{{proc.nombre_proceso}}</td>
+        <td>{{proc.fecha_inicio_proceso}}</td>
         <td>
-            <span class="d-inline-block text-truncate" style="max-width: 300px;">
-                {{act.query}}
-              </span></td>
+          {{proc.fecha_fin_proceso}}
+        </td>
+        <td>
+            {{proc.observaciones}}
+        </td>
+        <td>
+        </td>
       </tr>
       {% endfor %}   
 

@@ -27,7 +27,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
 
         'OPTIONS': {
-                'options': '-c search_path=development,campanias,temporal'
+                'options': '-c search_path=public,campanias,development,temporal'
             },
 
         'NAME': 'local',

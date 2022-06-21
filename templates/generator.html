@@ -23,9 +23,9 @@
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle {% block cargar %} {% endblock cargar %}" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Cargar</a>
               <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="{% url 'campaigns_app:load' 1 %}">Cargar</a></li>
+                <li><a class="dropdown-item" href="{% block url_cargar %}{% endblock url_cargar %}">Cargar</a></li>
                 <li><a class="dropdown-item" href="#">Consultar</a></li>
-                <li><a class="dropdown-item" href="#">Filtrar</a></li>
+                <li><a class="dropdown-item" href="{% block url_filtrar %}{% endblock url_filtrar %}">Filtrar</a></li>
               </ul>
             </li>
             <li class="nav-item">

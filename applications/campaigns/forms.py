@@ -66,7 +66,7 @@ class CreateForm(forms.ModelForm):
             'id_clasificacion': forms.Select(
                 attrs= {
                     'class': 'form-select',
-                    'required': ''
+                    'required': '',
                 }
             ),
             'tracking_id': forms.Select(

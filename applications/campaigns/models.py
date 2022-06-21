@@ -11,21 +11,57 @@ from tabnanny import verbose
 from django.db import models
 
 #managers
-from .managers import ListCampaignsManager, CreateCampaignsManager, ListCampaignsManager,SearchCampaignsManager
+from .managers import ListCampaignsManager, CreateCampaignsManager, ListCampaignsManager
 
 from django.db.models.signals import post_save
 
-class DwTemp202206(models.Model):
-    id_temp = models.BigAutoField(auto_created=True, primary_key=True)
-    id_campania = models.BigIntegerField()
-    cuitcuil = models.BigIntegerField()
-    monto = models.CharField(max_length=20, blank=True, null=True)
+class DwClientes(models.Model):
+    id_cliente = models.BigIntegerField(primary_key=True)
+    fecha_alta = models.DateField(blank=True, null=True)
+    fecha_baja = models.DateField(blank=True, null=True)
+    fecha_nacimiento = models.DateField(blank=True, null=True)
+    genero = models.CharField(max_length=1, blank=True, null=True)
+    nombre = models.CharField(max_length=50, blank=True, null=True)
+    apellido = models.CharField(max_length=50, blank=True, null=True)
+    telefono = models.CharField(max_length=20, blank=True, null=True)
+    email = models.CharField(max_length=50, blank=True, null=True)
+    domic_calle = models.CharField(max_length=50, blank=True, null=True)
+    domic_numero = models.CharField(max_length=20, blank=True, null=True)
+    domic_piso = models.CharField(max_length=20, blank=True, null=True)
+    domic_dpto = models.CharField(max_length=20, blank=True, null=True)
+    domic_cp = models.CharField(max_length=20, blank=True, null=True)
+    domic_tipo = models.CharField(max_length=20, blank=True, null=True)
+    domic_cod_prov = models.CharField(max_length=20, blank=True, null=True)
+    domic_cpacp = models.CharField(max_length=20, blank=True, null=True)
+    edad = models.IntegerField(blank=True, null=True)
+    dni = models.CharField(max_length=20, blank=True, null=True)
+    cuitcuil = models.CharField(max_length=20, blank=True, null=True)
+    codigo_nacionalidad = models.CharField(max_length=20, blank=True, null=True)
+    codigo_ocupacion = models.CharField(max_length=20, blank=True, null=True)
+    codigo_estadocivil = models.CharField(max_length=20, blank=True, null=True)
+    domic_localidad = models.CharField(max_length=50, blank=True, null=True)
+    onboarding = models.CharField(max_length=1, blank=True, null=True)
+    tipo_baja = models.CharField(max_length=10, blank=True, null=True)
+    fecha_preregistro = models.DateField(blank=True, null=True)
+    id_user = models.CharField(max_length=100, blank=True, null=True)
+    id_btclient = models.IntegerField(blank=True, null=True)
+    demograficos = models.IntegerField(blank=True, null=True)
+    fecha_creacion = models.DateTimeField(blank=True, null=True)
+    fecha_modificacion = models.DateTimeField(blank=True, null=True)
+    payroll = models.CharField(max_length=1, blank=True, null=True)
+    cuit_empleador = models.CharField(max_length=11, blank=True, null=True)
+    payroll_fecha_alta = models.DateField(blank=True, null=True)
+    domic_geo_latitud = models.FloatField(blank=True, null=True)
+    domic_geo_longitud = models.FloatField(blank=True, null=True)
+    domic_geo_tipo = models.CharField(max_length=2, blank=True, null=True)
+    ultima_acred_pay = models.DateField(blank=True, null=True)
+    ultimo_cambio_txt = models.CharField(max_length=255, blank=True, null=True)
 
     class Meta:
         managed = False
-        db_table = 'dw_temp_202206'
-        
+        db_table = 'dw_clientes'
 
+        
 class LkClasificacionCampanias(models.Model):
     id_clasificacion = models.IntegerField(primary_key=True)
     nombre_clasificacion = models.CharField(max_length=30, blank=True, null=True)
@@ -33,6 +69,16 @@ class LkClasificacionCampanias(models.Model):
     class Meta:
         managed = False
         db_table = 'lk_clasificacion_campanias'
+
+
+class LkClasificacionTracking(models.Model):
+    tracking_id = models.AutoField(primary_key=True)
+    nombre = models.CharField(max_length=40, blank=True, null=True)
+    dias = models.IntegerField(blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'lk_clasificacion_tracking'
 
 
 class DwCampanias(models.Model):
@@ -44,12 +90,11 @@ class DwCampanias(models.Model):
     vigencia_hasta = models.DateField(blank=True, null=True)
     fecha_envio = models.DateTimeField(blank=True, null=True, editable=False)
     id_clasificacion = models.ForeignKey(LkClasificacionCampanias, models.CASCADE, db_column='id_clasificacion', blank=True, null=True)
-    tracking_id = models.IntegerField(blank=True, null=True)
-    tracked = models.BooleanField(blank=True, null=True)
+    tracking_id = models.ForeignKey(LkClasificacionTracking, models.CASCADE, db_column='tracking_id',blank=True, null=True)
+    istracked = models.BooleanField(blank=True, null=True)
 
     objects_list = ListCampaignsManager()
     objects_create = CreateCampaignsManager()
-    objects_search = SearchCampaignsManager()
 
     class Meta:
         managed = False
@@ -59,34 +104,76 @@ class DwCampanias(models.Model):
         db_table = 'dw_campanias'
 
 
+class DwCampaniaClienteCanal(models.Model):
+    id = models.BigAutoField(auto_created=True, primary_key=True)
+    id_campania = models.IntegerField(blank=True, null=True)
+    id_cliente = models.IntegerField(blank=True, null=True)
+    fecha = models.DateField(blank=True, null=True)
+    canal = models.CharField(max_length=50, blank=True, null=True, default='[mail]')
+
+    class Meta:
+        managed = False
+        db_table = 'dw_campania_cliente_canal'
+
+
+class DwCampaniaClienteCanalGrupocontrol(models.Model):
+    id_campania = models.IntegerField(blank=True, null=True)
+    id_cliente = models.IntegerField(blank=True, null=True)
+    fecha = models.DateField(blank=True, null=True)
+    canal = models.CharField(max_length=50, blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'dw_campania_cliente_canal_grupocontrol'
+
+
+class DwBlackListGeneral(models.Model):
+    id_cliente = models.ForeignKey(DwClientes, models.CASCADE, db_column='id_cliente', related_name='black_list',blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'dw_black_list_general'
+
+
 class FileCSV(models.Model):
     file = models.FileField(upload_to='')
 
 
+class DwTemp202206(models.Model):
+    id_temp = models.BigAutoField(auto_created=True, primary_key=True)
+    id_campania = models.BigIntegerField()
+    id_cliente = models.BigIntegerField(blank=True, null=True)
+    cuitcuil = models.CharField(max_length=20, blank=True, null=True)
+    email = models.CharField(max_length=50, blank=True, null=True)
+    monto = models.CharField(max_length=20, blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'dw_temp_202206'
+
+
+class DwProcesosEtl(models.Model):
+    id_proceso = models.AutoField(auto_created=True, primary_key=True)
+    codigo_proceso = models.CharField(max_length=20, blank=True, null=True)
+    nombre_proceso = models.CharField(max_length=50, blank=True, null=True)
+    fecha_inicio_proceso = models.DateTimeField(blank=True, null=True)
+    fecha_fin_proceso = models.DateTimeField(blank=True, null=True)
+    observaciones = models.CharField(max_length=100, blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'dw_procesos_etl'
+
+    
 class PgStatActivity(models.Model):
-    datid = models.TextField(blank=True, null=True)  # This field type is a guess.
-    datname = models.TextField(db_collation='C', blank=True, null=True)  # This field type is a guess.
+    datname = models.TextField(db_collation='C', blank=True, null=True)
     pid = models.IntegerField(primary_key=True, editable=False)
-    leader_pid = models.IntegerField(blank=True, null=True)
-    usesysid = models.TextField(blank=True, null=True)  # This field type is a guess.
-    usename = models.TextField(db_collation='C', blank=True, null=True)  # This field type is a guess.
-    application_name = models.TextField(blank=True, null=True)
     client_addr = models.GenericIPAddressField(blank=True, null=True)
-    client_hostname = models.TextField(blank=True, null=True)
-    client_port = models.IntegerField(blank=True, null=True)
-    backend_start = models.DateTimeField(blank=True, null=True)
-    xact_start = models.DateTimeField(blank=True, null=True)
     query_start = models.DateTimeField(blank=True, null=True)
     state_change = models.DateTimeField(blank=True, null=True)
-    wait_event_type = models.TextField(blank=True, null=True)
-    wait_event = models.TextField(blank=True, null=True)
     state = models.TextField(blank=True, null=True)
-    backend_xid = models.TextField(blank=True, null=True)  # This field type is a guess.
-    backend_xmin = models.TextField(blank=True, null=True)  # This field type is a guess.
-    query_id = models.BigIntegerField(blank=True, null=True)
     query = models.TextField(blank=True, null=True)
-    backend_type = models.TextField(blank=True, null=True)
-
+    
     class Meta:
         managed = False
         db_table = 'pg_stat_activity'

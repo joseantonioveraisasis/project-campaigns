@@ -1,32 +1,32 @@
 {% load static %}
-<header class="py-3 mb-4 border-bottom">
+<header class="py-3 mb-4 border-bottom bg-dark text-white">
 
 
     <div class="container-md">
       <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
         <a href="{% url 'campaigns_app:index' %}" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
-          <img src="{% static 'img/logo-home.png' %}" alt="" width="32" height="32" class="d-inline-block align-text-top">
+          <img src="{% static 'img/logo-home2.png' %}" alt="" width="32" height="32" class="d-inline-block align-text-top">
         </a>
 
         <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
           <li><a href="{% url 'campaigns_app:index' %}" class="nav-link px-2 text-secondary">Principal</a></li>
-          <li><a href="#" class="nav-link px-2">Reportes</a></li>
-          <li><a href="#" class="nav-link px-2">Seguimiento</a></li>
+          <li><a href="#" class="nav-link px-2 text-white">Reportes</a></li>
+          <li><a href="#" class="nav-link px-2 text-white">Seguimiento</a></li>
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               Mas
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <li><a class="dropdown-item" href="#">Sub</a></li>
-              <li><a class="dropdown-item" href="#">Sub</a></li>
-              <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item" href="#">Sub</a></li>
+              <li><a class="dropdown-item" href="{% url 'campaigns_app:process' %}">Procesos ETL</a></li>
+              <li><a class="dropdown-item" href="{% url 'campaigns_app:activity' %}">Actividad</a></li>
+              <!-- <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="#">Sub</a></li> -->
             </ul>
           </li>
         </ul>
 
         <form method="get" action="/" class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
-          <input id="search" name="search" type="search" class="form-control" placeholder="Buscar..." aria-label="Search">
+          <input id="search" name="search" type="search" class="form-control form-control-dark text-white bg-dark" placeholder="Buscar..." aria-label="Search">
         </form>
       </div>
     </div>

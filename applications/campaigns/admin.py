@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import LkClasificacionCampanias,DwCampanias,PgStatActivity
+from .models import LkClasificacionCampanias,DwCampanias,PgStatActivity,DwBlackListGeneral
 
 # Register your models here.
 
@@ -13,7 +13,7 @@ class ListaCampanias(admin.ModelAdmin):
         'fecha_creacion',
         'fecha_envio',
         'id_clasificacion',
-        'tracked'
+        'istracked'
     )
     search_fields  = ('nombre_campania',)
 
@@ -31,6 +31,12 @@ class ListActivity(admin.ModelAdmin):
         'state',
         'query'
     )
+class ListBlack(admin.ModelAdmin):
+        list_display = (
+        'id',
+        'id_cliente'
+    )
 admin.site.register(DwCampanias, ListaCampanias)
 admin.site.register(LkClasificacionCampanias,ListaClasificacion)
 admin.site.register(PgStatActivity, ListActivity)
+admin.site.register(DwBlackListGeneral, ListBlack)

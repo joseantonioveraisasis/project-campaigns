@@ -6,6 +6,8 @@ Lista clientes
 
 {% block crear %} {% endblock crear %}
 {% block cargar %} active{% endblock cargar %}
+{% block url_cargar %}{% url 'campaigns_app:load' pk %}{% endblock url_cargar %}
+{% block url_filtrar %}{% url 'campaigns_app:filters' pk %}{% endblock url_filtrar %}
 {% block publicar %} {% endblock publicar %}
 
 {% block cardbody %}
@@ -15,8 +17,40 @@ Lista clientes
   
         <div class="col-12">
           <label for="formFile" class="form-label">Seleccionar archivo</label>
+          <div style="float: right;">
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="option" id="inlineRadio2" value="cuitcuil" checked>
+            <label class="form-check-label" for="inlineRadio2">Cuil</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="option" id="inlineRadio3" value="email">
+            <label class="form-check-label" for="inlineRadio3">Email</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="option" id="inlineRadio1" value="id_cliente">
+            <label class="form-check-label" for="inlineRadio1">Id</label>
+          </div>
+        </div>
             <!-- <input class="form-control" type="file" enctype="multipart/form-data" name="file" id="file"  accept=".csv, text/csv"> -->
             {{ form.file }}
+          </div>
+
+          <div class="col-12" style="display: none;">
+            <label for="formFile" class="form-label">Cargar por:</label>
+            <div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="optionx" id="inlineRadio2" value="cuitcuil" checked>
+              <label class="form-check-label" for="inlineRadio2">Cuil</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="optionx" id="inlineRadio3" value="email">
+              <label class="form-check-label" for="inlineRadio3">Email</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="optionx" id="inlineRadio1" value="id_cliente">
+              <label class="form-check-label" for="inlineRadio1">Id</label>
+            </div>
+          </div>
           </div>
 
           <div class="col-6">
@@ -70,6 +104,7 @@ Lista clientes
       <hr class="my-4">
 
     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+      <!-- <a class="btn btn-light" href="">Omitir</a> -->
       <button type="reset" class="btn btn-light">Limpiar</button>
       <button type="submit" class="btn btn-dark">Guadar</button>
     </div>

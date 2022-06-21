@@ -172,7 +172,7 @@ class DwCampanias(models.Model):
 class DwTemp202206(models.Model):
     id_temp = models.BigAutoField()
     id_campania = models.BigIntegerField()
-    cuitcuil = models.BigIntegerField()
+    identificador = models.CharField(max_length=-1)
     monto = models.CharField(max_length=20, blank=True, null=True)
 
     class Meta:
@@ -187,32 +187,3 @@ class LkClasificacionCampanias(models.Model):
     class Meta:
         managed = False
         db_table = 'lk_clasificacion_campanias'
-
-
-class PgStartActivity(models.Model):
-    datid = models.TextField(blank=True, null=True)  # This field type is a guess.
-    datname = models.TextField(db_collation='C', blank=True, null=True)  # This field type is a guess.
-    pid = models.IntegerField(blank=True, null=True)
-    leader_pid = models.IntegerField(blank=True, null=True)
-    usesysid = models.TextField(blank=True, null=True)  # This field type is a guess.
-    usename = models.TextField(db_collation='C', blank=True, null=True)  # This field type is a guess.
-    application_name = models.TextField(blank=True, null=True)
-    client_addr = models.GenericIPAddressField(blank=True, null=True)
-    client_hostname = models.TextField(blank=True, null=True)
-    client_port = models.IntegerField(blank=True, null=True)
-    backend_start = models.DateTimeField(blank=True, null=True)
-    xact_start = models.DateTimeField(blank=True, null=True)
-    query_start = models.DateTimeField(blank=True, null=True)
-    state_change = models.DateTimeField(blank=True, null=True)
-    wait_event_type = models.TextField(blank=True, null=True)
-    wait_event = models.TextField(blank=True, null=True)
-    state = models.TextField(blank=True, null=True)
-    backend_xid = models.TextField(blank=True, null=True)  # This field type is a guess.
-    backend_xmin = models.TextField(blank=True, null=True)  # This field type is a guess.
-    query_id = models.BigIntegerField(blank=True, null=True)
-    query = models.TextField(blank=True, null=True)
-    backend_type = models.TextField(blank=True, null=True)
-
-    class Meta:
-        managed = False
-        db_table = 'pg_start_activity'
